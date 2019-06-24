@@ -9,16 +9,22 @@ import java.nio.file.WatchEvent;
 import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
+import es.cfuentes.code.text.invindex.index.InvertedIndex;
+
 @Component
 public class FolderMonitor implements ApplicationRunner {
 	
-	@Value("${monitor.folder:C:\\Users\\chema\\workspaces\\oxy-workspace\\inverted-index-app\\documents}")
+	@Value("${monitor.folder:documents}")
 	private String folder = "";
+	
+	@Autowired
+	private InvertedIndex ie;
 
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
@@ -33,17 +39,20 @@ public class FolderMonitor implements ApplicationRunner {
 		// Index already existing files
 		for(File indexFile: file.listFiles()) {
 			System.out.println("Processing file: " + indexFile.getAbsolutePath());
+			ie.indexDocument(indexFile);
 		}
 		
 		// Monitor the folder for changes
 		WatchService watchService = FileSystems.getDefault().newWatchService();
-		Path path = Paths.get(file.toURI());
-		path.register(watchService, StandardWatchEventKinds.ENTRY_CREATE);
+		Path dirPath = Paths.get(file.toURI());
+		dirPath.register(watchService, StandardWatchEventKinds.ENTRY_CREATE);
 		WatchKey key;
 		while ((key = watchService.take()) != null) {
 		    for (WatchEvent<?> event : key.pollEvents()) {
 		        //process
 		    	System.out.println("Procesando evento + " + event.context());
+		    	Path filePath = (Path)event.context();		    	
+		    	ie.indexDocument(dirPath.resolve(filePath).toFile());
 		    }
 		    key.reset();
 		}
