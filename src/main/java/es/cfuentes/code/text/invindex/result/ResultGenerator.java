@@ -1,9 +1,38 @@
 package es.cfuentes.code.text.invindex.result;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
+
+import es.cfuentes.code.text.invindex.beans.ScoredDocument;
+import es.cfuentes.code.text.invindex.index.InvertedIndex;
+
+@Component
 public class ResultGenerator {
+	
+	@Value("${monitor.terms}")
+	private String[] terms;
+	
+	@Autowired
+	private InvertedIndex ie;
 
-	public ResultGenerator() {
-		// TODO Auto-generated constructor stub
+	@Scheduled(fixedRateString = "${result.print.rate}")
+	public void printResults() {
+		System.out.println("Imprimo resultados");
+		
+		Set<ScoredDocument> combinedSet = new HashSet<ScoredDocument>();
+		
+		for(String term : terms)
+			combinedSet.addAll(ie.getTerm(term));
+		
+		// make a stream
+		// group by document
+		// average
+		// sort
+		// filter
 	}
-
 }

@@ -6,7 +6,6 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutionException;
 import java.util.logging.Logger;
 
@@ -15,6 +14,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import es.cfuentes.code.text.invindex.beans.DocEntry;
+import es.cfuentes.code.text.invindex.beans.ScoredDocument;
 
 @Component
 public class InvertedIndex {
@@ -47,10 +47,11 @@ public class InvertedIndex {
 		printIndex();
 	}
 
-	public synchronized Set<DocEntry> getTerm(String term) {
-		// Return a copy of DocEntry set, to avoid concurrent modification problems
-		Set<DocEntry> ret = new HashSet<DocEntry>();
-		ret.addAll(ie.get(term));
+	public synchronized Set<ScoredDocument> getTerm(String term) {
+		// Return a ordered list of scored documents
+		Set<ScoredDocument> ret = new HashSet<ScoredDocument>();
+		for(DocEntry entry: ie.get(term))
+			ret.add(scorer.scoreDocument(entry, term));
 		return ret;
 	}
 

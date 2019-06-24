@@ -22,6 +22,7 @@ import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Component;
 
 import es.cfuentes.code.text.invindex.beans.DocEntry;
+import es.cfuentes.code.text.invindex.beans.ScoredDocument;
 
 @Component
 public class TfIdfScorer {
@@ -63,8 +64,11 @@ public class TfIdfScorer {
 			printFrec();
 	}
 	
-	public float scoreDocument(DocEntry doc, String term) {
-		return doc.getFrec() / termOccurence.get(term);
+	public ScoredDocument scoreDocument(DocEntry doc, String term) {
+		return new ScoredDocument(
+				doc.getName(),
+				doc.getFrec() * 1.0 / termOccurence.get(term)
+		);
 	}
 	
 	private void printFrec() {
