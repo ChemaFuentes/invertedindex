@@ -50,8 +50,9 @@ public class InvertedIndex {
 	public synchronized Set<ScoredDocument> getTerm(String term) {
 		// Return a ordered list of scored documents
 		Set<ScoredDocument> ret = new HashSet<ScoredDocument>();
-		for(DocEntry entry: ie.get(term))
-			ret.add(scorer.scoreDocument(entry, term));
+		if(ie.containsKey(term))
+			for(DocEntry entry: ie.get(term))
+				ret.add(scorer.scoreDocument(entry, term));
 		return ret;
 	}
 
