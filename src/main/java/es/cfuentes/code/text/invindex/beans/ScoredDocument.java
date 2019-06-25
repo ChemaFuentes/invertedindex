@@ -1,5 +1,7 @@
 package es.cfuentes.code.text.invindex.beans;
-
+/*
+ * Generic class for a document with its score
+ */
 public class ScoredDocument {
 	
 	private String name;
@@ -42,7 +44,4 @@ public class ScoredDocument {
 	public void setScore(Double score) {
 		this.score = score;
 	}
-	
-	
-
 }
