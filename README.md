@@ -22,6 +22,6 @@ For maven execution use:
 In both cases, inverted index takes the following arguments:
  - monitor.terms: terms that we use to score the documents. e.j: here,now
  - result.print.rate: time in millis to show results. e.j: 10000
- - numb.docs: number of documents to show
+ - num.docs: number of documents to show
     
 # Performance
