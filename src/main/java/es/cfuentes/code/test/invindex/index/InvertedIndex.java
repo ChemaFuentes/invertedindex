@@ -1,4 +1,4 @@
-package es.cfuentes.code.text.invindex.index;
+package es.cfuentes.code.test.invindex.index;
 
 import java.io.File;
 import java.util.Collections;
@@ -15,10 +15,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
-import es.cfuentes.code.text.invindex.beans.DocEntry;
-import es.cfuentes.code.text.invindex.beans.ScoredDocument;
-import es.cfuentes.code.text.invindex.ifaces.DocumentIndex;
-import es.cfuentes.code.text.invindex.ifaces.DocumentScorer;
+import es.cfuentes.code.test.invindex.beans.DocEntry;
+import es.cfuentes.code.test.invindex.beans.ScoredDocument;
+import es.cfuentes.code.test.invindex.ifaces.DocumentIndex;
+import es.cfuentes.code.test.invindex.ifaces.DocumentScorer;
 
 /*
  * Inverted index implementation
@@ -39,7 +39,7 @@ public class InvertedIndex implements DocumentIndex {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * es.cfuentes.code.text.invindex.index.DocumentIndex#indexDocument(java.io.
+	 * es.cfuentes.code.test.invindex.index.DocumentIndex#indexDocument(java.io.
 	 * File)
 	 */
 	@Override
@@ -67,7 +67,7 @@ public class InvertedIndex implements DocumentIndex {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * es.cfuentes.code.text.invindex.index.DocumentIndex#getTerm(java.lang.String)
+	 * es.cfuentes.code.test.invindex.index.DocumentIndex#getTerm(java.lang.String)
 	 */
 	@Override
 	public synchronized Set<ScoredDocument> getTerm(String term) {

@@ -1,4 +1,4 @@
-package es.cfuentes.code.text.invindex.beans;
+package es.cfuentes.code.test.invindex.beans;
 /*
  * Generic class for a document with its score
  */

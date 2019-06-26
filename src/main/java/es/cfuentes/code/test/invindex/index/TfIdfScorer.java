@@ -1,7 +1,7 @@
 /**
  * 
  */
-package es.cfuentes.code.text.invindex.index;
+package es.cfuentes.code.test.invindex.index;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,9 +21,9 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Component;
 
-import es.cfuentes.code.text.invindex.beans.DocEntry;
-import es.cfuentes.code.text.invindex.beans.ScoredDocument;
-import es.cfuentes.code.text.invindex.ifaces.DocumentScorer;
+import es.cfuentes.code.test.invindex.beans.DocEntry;
+import es.cfuentes.code.test.invindex.beans.ScoredDocument;
+import es.cfuentes.code.test.invindex.ifaces.DocumentScorer;
 
 /*
  * TfIdf scorer implementation
@@ -37,7 +37,7 @@ public class TfIdfScorer implements DocumentScorer {
 	private Map<String, Long> termOccurence = new HashMap<String, Long>();
 	
 	/* (non-Javadoc)
-	 * @see es.cfuentes.code.text.invindex.index.DocumentScorer#processDocument(java.io.File)
+	 * @see es.cfuentes.code.test.invindex.index.DocumentScorer#processDocument(java.io.File)
 	 */
 	@Override
 	@Async
@@ -81,7 +81,7 @@ public class TfIdfScorer implements DocumentScorer {
 	}
 	
 	/* (non-Javadoc)
-	 * @see es.cfuentes.code.text.invindex.index.DocumentScorer#scoreDocument(es.cfuentes.code.text.invindex.beans.DocEntry, java.lang.String)
+	 * @see es.cfuentes.code.test.invindex.index.DocumentScorer#scoreDocument(es.cfuentes.code.test.invindex.beans.DocEntry, java.lang.String)
 	 */
 	@Override
 	public ScoredDocument scoreDocument(DocEntry doc, String term) {

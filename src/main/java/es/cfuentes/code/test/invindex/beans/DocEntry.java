@@ -1,4 +1,4 @@
-package es.cfuentes.code.text.invindex.beans;
+package es.cfuentes.code.test.invindex.beans;
 
 public class DocEntry {
 

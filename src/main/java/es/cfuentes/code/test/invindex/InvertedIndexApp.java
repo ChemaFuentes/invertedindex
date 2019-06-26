@@ -1,4 +1,4 @@
-package es.cfuentes.code.text.invindex;
+package es.cfuentes.code.test.invindex;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

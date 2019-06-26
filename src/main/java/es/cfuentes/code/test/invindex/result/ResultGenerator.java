@@ -1,23 +1,26 @@
-package es.cfuentes.code.text.invindex.result;
+package es.cfuentes.code.test.invindex.result;
 
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ConcurrentMap;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import es.cfuentes.code.text.invindex.beans.ScoredDocument;
-import es.cfuentes.code.text.invindex.ifaces.DocumentIndex;
+import es.cfuentes.code.test.invindex.beans.ScoredDocument;
+import es.cfuentes.code.test.invindex.ifaces.DocumentIndex;
 
 /*
  * Component that prints results at a fixed rate
  */
+@Profile("!test")
 @Component
 public class ResultGenerator {
 
@@ -29,14 +32,16 @@ public class ResultGenerator {
 
 	@Autowired
 	private DocumentIndex ie;
+	
+	private Logger log = Logger.getLogger(this.getClass().getName());
 
-	@Scheduled(fixedRateString = "${result.print.rate}")
+	@Scheduled(fixedRateString = "${result.print.rate}", initialDelayString = "${result.print.rate}")
 	public void printResults() {
-		System.out.println("Results for " + Arrays.toString(terms));
-		getResults().stream().forEach(sd -> System.out.println(sd.getName() + " " + sd.getScore()));
+		log.info("Results for " + Arrays.toString(terms));
+		getResults(terms,limit,ie).stream().forEach(sd -> log.info(sd.getName() + " " + sd.getScore()));
 	}
 
-	List<ScoredDocument> getResults() {
+	public static List<ScoredDocument> getResults(String[] terms, int limit, DocumentIndex ie) {
 		// We get a map containing the sum of scores per document and term
 		ConcurrentMap<String, Double> comMap =
 				// We iterate over the terms

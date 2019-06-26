@@ -1,4 +1,4 @@
-package es.cfuentes.code.text.invindex.monitor;
+package es.cfuentes.code.test.invindex.monitor;
 
 import java.io.File;
 import java.nio.file.FileSystems;
@@ -14,14 +14,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
-import es.cfuentes.code.text.invindex.ifaces.DocumentIndex;
+import es.cfuentes.code.test.invindex.ifaces.DocumentIndex;
 
 /*
  * Component that monitors the document directory 
  */
-
+@Profile("!test")
 @Component
 public class FolderMonitor implements ApplicationRunner {
 

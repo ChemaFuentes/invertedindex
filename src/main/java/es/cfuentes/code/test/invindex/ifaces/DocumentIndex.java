@@ -1,10 +1,10 @@
-package es.cfuentes.code.text.invindex.ifaces;
+package es.cfuentes.code.test.invindex.ifaces;
 
 import java.io.File;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
 
-import es.cfuentes.code.text.invindex.beans.ScoredDocument;
+import es.cfuentes.code.test.invindex.beans.ScoredDocument;
 
 /*
  * Interface for document index
